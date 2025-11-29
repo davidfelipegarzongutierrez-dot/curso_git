@@ -1,105 +1,89 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const ActividadContainerCorregido());
+  runApp(const ActividadContainer());
 }
 
-class ActividadContainerCorregido extends StatelessWidget {
-  const ActividadContainerCorregido({super.key});
+class ActividadContainer extends StatelessWidget {
+  const ActividadContainer({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(title: const Text("Corrección: Errores Resueltos")),
+        appBar: AppBar(title: const Text("Actividad: Encuentra los Errores")),
         body: Center(
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
 
-                // ✅ CORRECCIÓN 1: color dentro de decoration
+                // ❌ ERROR 1: Usar color + decoration al mismo tiempo
+                // PISTA: Si usas decoration, no puedes usar color fuera.
                 Container(
                   width: 200,
                   height: 80,
+                  color: Colors.blue, // ❌
                   decoration: BoxDecoration(
-                    color: Colors.blue,
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  alignment: Alignment.center,
-                  child: const Text(
-                    "Corregido 1",
-                    style: TextStyle(color: Colors.white),
-                  ),
+                  child: const Center(child: Text("Error 1")),
                 ),
 
                 const SizedBox(height: 30),
 
-                // ✅ CORRECCIÓN 2: padding en lugar de margin (según la intención)
+                // ❌ ERROR 2: Confusión entre margin y padding
+                // PISTA: ¿Querías espacio DENTRO o FUERA del container?
                 Container(
-                  padding: const EdgeInsets.all(30),
+                  margin: const EdgeInsets.all(30), // ❌ ¿Era padding?
                   width: 200,
                   height: 80,
                   color: Colors.green,
-                  alignment: Alignment.center,
-                  child: const Text(
-                    "Corregido 2",
-                    style: TextStyle(color: Colors.white),
-                  ),
+                  child: const Text("Error 2"),
                 ),
 
                 const SizedBox(height: 30),
 
-                // ✅ CORRECCIÓN 3: el texto está centrado con alignment
+                // ❌ ERROR 3: El texto NO está centrado
+                // PISTA: ¿Qué propiedad del Container controla la alineación?
                 Container(
                   width: 200,
                   height: 80,
                   color: Colors.orange,
-                  alignment: Alignment.center,
-                  child: const Text(
-                    "Corregido 3",
-                    style: TextStyle(color: Colors.white),
-                  ),
+                  child: const Text("Error 3"), // ❌ No está centrado
                 ),
 
                 const SizedBox(height: 30),
 
-                // ✅ CORRECCIÓN 4: eliminar containers innecesarios
+                // ❌ ERROR 4: Sobreuso de Containers innecesarios
+                // PISTA: uno de estos Containers se puede eliminar sin problema.
                 Container(
-                  padding: const EdgeInsets.all(10),
-                  child: const Text("Corregido 4"),
-                ),
-
-                const SizedBox(height: 30),
-
-                // ✅ CORRECCIÓN 5: Transform aplicado solo al hijo
-                Container(
-                  width: 200,
-                  height: 80,
-                  color: Colors.purple,
-                  alignment: Alignment.center,
-                  child: Transform.rotate(
-                    angle: 0.3,
-                    child: const Text(
-                      "Corregido 5",
-                      style: TextStyle(color: Colors.white),
+                  child: Container(
+                    child: Container(
+                      child: const Text("Error 4"), // ❌ sobreuso
                     ),
                   ),
                 ),
 
                 const SizedBox(height: 30),
 
-                // ✅ CORRECCIÓN 6: Container con tamaño definido
+                // ❌ ERROR 5: Transform aplicado al Container entero
+                // PISTA: ¿la intención era transformar SOLO el texto?
                 Container(
+                  transform: Matrix4.rotationZ(0.3), // ❌
                   width: 200,
                   height: 80,
-                  color: Colors.red,
-                  alignment: Alignment.center,
-                  child: const Text(
-                    "Corregido 6",
-                    style: TextStyle(color: Colors.white),
-                  ),
+                  color: Colors.purple,
+                  child: const Text("Error 5"),
+                ),
+
+                const SizedBox(height: 30),
+
+                // ❌ ERROR 6: Container invisible sin tamaño ni hijo
+                // PISTA: ¿por qué no se ve? 🤔
+                Container(
+                  color: Colors.red, // ❌ no aparece en pantalla
                 ),
 
               ],
